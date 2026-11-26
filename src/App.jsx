@@ -9,6 +9,7 @@ import Snowfall from './components/Snowfall.jsx'
 import SparkleTrail from './components/SparkleTrail.jsx'
 import { items, priceValue } from './data/items.js'
 import { usePrefersReducedMotion } from './hooks/usePrefersReducedMotion.js'
+import { colors, displayFont } from './styles.js'
 
 const prices = items.map(priceValue)
 const MIN_PRICE = Math.min(...prices)
@@ -33,11 +34,23 @@ export default function App() {
     [sortByPrice, limit],
   )
 
+  const countText = shown.length
+    ? `${shown.length} of ${items.length} items`
+    : `No items at or under $${limit}.`
+
   return (
     <>
       <Lights />
       <Marquee />
-      <main>
+      <main
+        style={{
+          maxWidth: '72rem',
+          margin: '0 auto',
+          padding: '2rem 1.25rem 4rem',
+          position: 'relative',
+          boxSizing: 'border-box',
+        }}
+      >
         <Header />
         <Controls
           sortByPrice={sortByPrice}
@@ -47,15 +60,34 @@ export default function App() {
           min={MIN_PRICE}
           max={MAX_PRICE}
         />
-        <ul className="grid">
-          {shown.map((item) => (
-            <ItemCard key={item.priority} item={item} />
+        <ul
+          style={{
+            listStyle: 'none',
+            margin: 0,
+            padding: 0,
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fill, minmax(15.5rem, 1fr))',
+            gap: '1.8rem 1.4rem',
+          }}
+        >
+          {/* The position in the list picks each card's tilt and emoji */}
+          {shown.map((item, index) => (
+            <ItemCard key={item.priority} item={item} index={index} />
           ))}
         </ul>
-        <footer id="count">
-          {shown.length
-            ? `${shown.length} of ${items.length} items`
-            : `No items at or under $${limit}.`}
+        <footer
+          id="count"
+          style={{
+            marginTop: '2.5rem',
+            textAlign: 'center',
+            fontFamily: displayFont,
+            fontWeight: 700,
+            fontSize: '2rem',
+            color: colors.gold,
+            textShadow: '0 3px 0 #06260f',
+          }}
+        >
+          🎄 {countText} 🎄
         </footer>
       </main>
       <SiteFooter />

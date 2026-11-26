@@ -1,5 +1,15 @@
 export const items = [
   {
+    priority: 0,
+    price: "$70",
+    name: "Dash Cam",
+    note: "Front and rear recording",
+    store: "Amazon",
+    url: "https://www.amazon.com/Channel-Included-Control-G-Sensor-Recording/dp/B0HF4MQFV7/ref=sr_1_7?sr=8-7",
+    imgUrl:
+      "https://m.media-amazon.com/images/W/BW_MEDIAX_AVIF_MEASUREMENT_1306696-T4/images/I/71nm43MTpoL._AC_SL1500_.jpg",
+  },
+  {
     priority: 1,
     price: "$50",
     name: "PS4 Controller",
@@ -120,8 +130,8 @@ export const items = [
     imgUrl:
       "https://www.harborfreight.com/media/catalog/product/cache/87bb6fe55719635edbf9f739e6fd104e/6/4/64087_I.jpg?auto=webp&width=1200&height=1200&canvas=1200,1200&fit=bounds",
   },
-]
+];
 
 export function priceValue(item) {
-  return parseFloat(String(item.price).replace(/[^0-9.]/g, ''))
+  return parseFloat(String(item.price).replace(/[^0-9.]/g, ""));
 }

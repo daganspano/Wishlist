@@ -1,16 +1,13 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" style="min-height: 100%; color-scheme: light">
   <head>
     <meta charset="utf-8" />
     <meta
       name="viewport"
       content="width=device-width, initial-scale=1, viewport-fit=cover"
     />
-    <title>🎅 Dagan's Christmas Wishlist mk5 🎄</title>
-    <link
-      rel="icon"
-      href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Ctext y=%27.9em%27 font-size=%2790%27%3E%F0%9F%8E%84%3C/text%3E%3C/svg%3E"
-    />
+    <title>Dagan's Wishlist</title>
+    <link rel="icon" type="image/svg+xml" href="/gift-icon.svg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -18,7 +15,25 @@
       rel="stylesheet"
     />
   </head>
-  <body>
+  <body
+    style="
+      margin: 0;
+      padding: 2.4rem 0 env(safe-area-inset-bottom, 0px);
+      color: #fff;
+      font-family: Barlow, system-ui, sans-serif;
+      font-size: 1.0625rem;
+      line-height: 1.5;
+      background:
+        radial-gradient(circle, rgba(255, 255, 255, 0.7) 2px, transparent 3px)
+          0 0 / 38px 38px,
+        repeating-linear-gradient(135deg, #0b6b2e 0 44px, #b3101c 44px 88px);
+      cursor:
+        url('data:image/svg+xml,%3Csvg%20xmlns=%27http://www.w3.org/2000/svg%27%20width=%2732%27%20height=%2732%27%3E%3Ctext%20y=%2726%27%20font-size=%2726%27%3E%F0%9F%8E%85%3C/text%3E%3C/svg%3E')
+          4 4,
+        auto;
+      overflow-x: hidden;
+    "
+  >
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>

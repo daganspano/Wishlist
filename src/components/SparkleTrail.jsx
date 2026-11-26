@@ -1,7 +1,37 @@
 import { useEffect, useRef, useState } from 'react'
+import { useAnimation } from '../hooks/useAnimation.js'
 
 const TRAIL = ['❄️', '⭐', '🎄', '🎁', '🔔']
 const MIN_INTERVAL_MS = 45
+
+const FADE = {
+  transform: ['none', 'translateY(40px) rotate(180deg) scale(0.3)'],
+  opacity: [1, 0],
+  easing: 'ease-out',
+}
+const FADE_TIMING = { duration: 900, fill: 'forwards' }
+
+function Spark({ spark, onDone }) {
+  const ref = useAnimation(FADE, FADE_TIMING, {
+    onFinish: () => onDone(spark.id),
+  })
+
+  return (
+    <span
+      ref={ref}
+      aria-hidden="true"
+      style={{
+        position: 'fixed',
+        left: spark.left,
+        top: spark.top,
+        zIndex: 70,
+        pointerEvents: 'none',
+      }}
+    >
+      {spark.char}
+    </span>
+  )
+}
 
 export default function SparkleTrail() {
   const [sparks, setSparks] = useState([])
@@ -16,7 +46,8 @@ export default function SparkleTrail() {
       const spark = {
         id: nextId.current++,
         char: TRAIL[Math.floor(Math.random() * TRAIL.length)],
-        style: { left: `${e.clientX}px`, top: `${e.clientY}px` },
+        left: `${e.clientX}px`,
+        top: `${e.clientY}px`,
       }
       setSparks((current) => [...current, spark])
     }
@@ -29,14 +60,6 @@ export default function SparkleTrail() {
   }
 
   return sparks.map((spark) => (
-    <span
-      key={spark.id}
-      className="spark"
-      style={spark.style}
-      aria-hidden="true"
-      onAnimationEnd={() => remove(spark.id)}
-    >
-      {spark.char}
-    </span>
+    <Spark key={spark.id} spark={spark} onDone={remove} />
   ))
 }

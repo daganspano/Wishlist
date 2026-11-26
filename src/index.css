@@ -1,0 +1,560 @@
+:root {
+  color-scheme: light;
+  --red: #c1121f;
+  --green: #0b6b2e;
+  --gold: #ffd24d;
+  --snow: #ffffff;
+  --ink: #1b1b1b;
+  --display:
+    "Mountains of Christmas", "Barlow Condensed", "Comic Sans MS", cursive;
+  --candy: repeating-linear-gradient(
+    45deg,
+    #c1121f 0 10px,
+    #ffffff 10px 20px
+  );
+}
+* {
+  box-sizing: border-box;
+}
+html {
+  min-height: 100%;
+}
+body {
+  margin: 0;
+  padding: 2.4rem 0 env(safe-area-inset-bottom, 0px);
+  color: #fff;
+  font-family: "Barlow", system-ui, sans-serif;
+  font-size: 1.0625rem;
+  line-height: 1.5;
+  background:
+    radial-gradient(circle, rgba(255, 255, 255, 0.7) 2px, transparent 3px)
+      0 0 / 38px 38px,
+    repeating-linear-gradient(135deg, #0b6b2e 0 44px, #b3101c 44px 88px);
+  cursor:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32'%3E%3Ctext y='26' font-size='26'%3E%F0%9F%8E%85%3C/text%3E%3C/svg%3E")
+      4 4,
+    auto;
+  overflow-x: hidden;
+}
+/* blinking lights */
+.lights {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2.2rem;
+  z-index: 60;
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-end;
+  background: linear-gradient(#0a2e16 0 4px, transparent 4px);
+  pointer-events: none;
+}
+.bulb {
+  width: 1rem;
+  height: 1.5rem;
+  border-radius: 50% 50% 55% 55%;
+  background: var(--c);
+  box-shadow: 0 0 14px 4px var(--c);
+  animation: twinkle 1.2s infinite alternate;
+}
+.bulb:nth-child(4n + 1) {
+  --c: #ff2d3d;
+}
+.bulb:nth-child(4n + 2) {
+  --c: #2dff6b;
+  animation-delay: 0.3s;
+}
+.bulb:nth-child(4n + 3) {
+  --c: #ffd24d;
+  animation-delay: 0.6s;
+}
+.bulb:nth-child(4n + 4) {
+  --c: #ffffff;
+  animation-delay: 0.9s;
+}
+@keyframes twinkle {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0.25;
+    transform: scale(0.85);
+  }
+}
+/* marquee */
+.marquee {
+  overflow: hidden;
+  white-space: nowrap;
+  background: var(--red);
+  color: var(--gold);
+  border-top: 4px dashed #fff;
+  border-bottom: 4px dashed #fff;
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 1.6rem;
+  padding: 0.15rem 0;
+}
+.marquee span {
+  display: inline-block;
+  padding-left: 100%;
+  animation: scroll 18s linear infinite;
+}
+@keyframes scroll {
+  to {
+    transform: translateX(-100%);
+  }
+}
+/* snow + sparkles */
+.flake {
+  position: fixed;
+  top: -2rem;
+  z-index: 55;
+  pointer-events: none;
+  color: #fff;
+  text-shadow: 0 0 6px #9cf;
+  animation: fall linear infinite;
+}
+@keyframes fall {
+  to {
+    transform: translate3d(var(--dx), 110vh, 0) rotate(360deg);
+  }
+}
+.spark {
+  position: fixed;
+  z-index: 70;
+  pointer-events: none;
+  animation: spark 0.9s ease-out forwards;
+}
+@keyframes spark {
+  to {
+    transform: translateY(40px) rotate(180deg) scale(0.3);
+    opacity: 0;
+  }
+}
+
+main {
+  max-width: 72rem;
+  margin: 0 auto;
+  padding: 2rem 1.25rem 4rem;
+  position: relative;
+}
+h1 {
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: clamp(2.6rem, 10vw, 5.5rem);
+  line-height: 1.05;
+  margin: 0 0 0.5rem;
+  text-align: center;
+  text-shadow:
+    0 4px 0 #0b3d1c,
+    0 0 24px rgba(255, 210, 77, 0.8);
+}
+h1 .glitter {
+  background: linear-gradient(
+    90deg,
+    #fff,
+    #ffd24d,
+    #ff6b6b,
+    #7dff9a,
+    #fff,
+    #ffd24d
+  );
+  background-size: 300% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow: none;
+  filter: drop-shadow(0 3px 0 #0b3d1c);
+  animation: shimmer 4s linear infinite;
+}
+h1 .bounce {
+  display: inline-block;
+  animation: bounce 1s ease-in-out infinite alternate;
+}
+h1 .bounce:last-child {
+  animation-delay: 0.5s;
+}
+@keyframes shimmer {
+  to {
+    background-position: 300% 0;
+  }
+}
+@keyframes bounce {
+  to {
+    transform: translateY(-0.2em) rotate(12deg);
+  }
+}
+.powered {
+  margin: 0 0 0.7rem;
+  text-align: center;
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 1.7rem;
+  color: #fff;
+  text-shadow: 0 2px 0 #0b3d1c;
+}
+.powered::before {
+  content: "🛠️ ";
+}
+.powered::after {
+  content: " 🧝";
+}
+.stripe {
+  height: 1.1rem;
+  margin: 0 auto 1rem;
+  max-width: 40rem;
+  background: var(--candy);
+  border: 3px solid #fff;
+  border-radius: 99px;
+}
+.intro {
+  margin: 0 0 1.5rem;
+  text-align: center;
+  font-family: var(--display);
+  font-size: 1.6rem;
+  text-shadow: 0 2px 0 #0b3d1c;
+}
+
+/* controls */
+.sort {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.6rem 1rem;
+  margin-bottom: 2rem;
+  background: #0b6b2e;
+  padding: 1rem 1.25rem;
+  border: 10px solid transparent;
+  border-image: var(--candy) 10;
+  box-shadow:
+    0 0 0 4px #ffd24d,
+    0 10px 30px rgba(0, 0, 0, 0.5);
+}
+.sort-label,
+.limit label {
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 1.8rem;
+  color: var(--gold);
+  text-shadow: 0 2px 0 #06260f;
+}
+.sort-label::before {
+  content: "🎅 ";
+}
+.limit label::before {
+  content: "💰 ";
+}
+.opt {
+  color: #cfe9d6;
+  cursor: pointer;
+  user-select: none;
+  font-weight: 500;
+}
+.opt.active {
+  color: #fff;
+  font-weight: 700;
+  text-decoration: underline wavy var(--gold);
+}
+.switch {
+  position: relative;
+  width: 3.6rem;
+  height: 1.9rem;
+  padding: 0;
+  cursor: pointer;
+  background: #c1121f;
+  border: 3px solid #fff;
+  border-radius: 999px;
+  box-shadow: inset 0 0 0 2px #7a0a13;
+}
+.switch .knob {
+  position: absolute;
+  top: 50%;
+  left: 2px;
+  width: 1.4rem;
+  height: 1.4rem;
+  transform: translateY(-50%);
+  background: transparent;
+  border-radius: 0;
+  transition: left 0.2s ease;
+}
+.switch .knob::before {
+  content: "🔔";
+  position: absolute;
+  inset: 0;
+  font-size: 1.3rem;
+  line-height: 1.4rem;
+}
+.switch[aria-checked="true"] {
+  background: #2ecc71;
+  border-color: #ffd24d;
+  box-shadow: inset 0 0 0 2px #0b6b2e;
+}
+.switch[aria-checked="true"] .knob {
+  left: calc(100% - 1.4rem - 2px);
+}
+.switch:focus-visible,
+.limit input[type="range"]:focus-visible,
+.money input:focus-visible,
+a:focus-visible {
+  outline: 4px dotted var(--gold);
+  outline-offset: 3px;
+}
+.limit {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  margin-left: 1.5rem;
+}
+.limit input[type="range"] {
+  width: 11rem;
+  max-width: 40vw;
+  accent-color: #ff2d3d;
+  cursor: pointer;
+}
+.money {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.2rem;
+  font-weight: 700;
+  color: var(--gold);
+  font-size: 1.3rem;
+}
+.money input {
+  width: 5rem;
+  font: inherit;
+  color: var(--red);
+  background: #fffbe6;
+  border: 3px dashed var(--red);
+  border-radius: 8px;
+  padding: 0.2rem 0.4rem;
+}
+
+/* cards */
+.grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(15.5rem, 1fr));
+  gap: 1.8rem 1.4rem;
+}
+.card {
+  position: relative;
+  color: var(--ink);
+  background: #fffaf0;
+  border: 10px solid transparent;
+  border-image: var(--candy) 10;
+  display: flex;
+  flex-direction: column;
+  transform: rotate(-1.2deg);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.55);
+  transition: transform 0.2s;
+}
+.card:nth-child(even) {
+  transform: rotate(1.2deg);
+}
+.card:hover {
+  transform: rotate(0) scale(1.04);
+  animation: jingle 0.4s 2;
+  z-index: 5;
+}
+@keyframes jingle {
+  25% {
+    transform: rotate(-4deg) scale(1.04);
+  }
+  75% {
+    transform: rotate(4deg) scale(1.04);
+  }
+}
+.card::after {
+  content: "🎁";
+  position: absolute;
+  top: -1.9rem;
+  right: -1.4rem;
+  font-size: 2.4rem;
+  transform: rotate(14deg);
+  filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.5));
+}
+.card:nth-child(3n + 2)::after {
+  content: "⛄";
+}
+.card:nth-child(3n + 3)::after {
+  content: "🦌";
+}
+.photo {
+  aspect-ratio: 1 / 1;
+  background: #fff;
+  border-bottom: 4px solid var(--green);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+.photo.empty {
+  background: var(--candy);
+  color: var(--green);
+}
+.photo.empty svg {
+  width: 34%;
+  height: auto;
+  background: #fff;
+  padding: 0.6rem;
+  border-radius: 50%;
+}
+.body {
+  padding: 0.8rem 1rem 1rem;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+.name {
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 1.6rem;
+  line-height: 1.1;
+  margin: 0;
+  color: var(--green);
+}
+.card:nth-child(4n + 1) .name::before {
+  content: "🎄 ";
+}
+.card:nth-child(4n + 2) .name::before {
+  content: "⭐ ";
+}
+.card:nth-child(4n + 3) .name::before {
+  content: "🍪 ";
+}
+.card:nth-child(4n + 4) .name::before {
+  content: "🧦 ";
+}
+.note {
+  margin: 0.3rem 0 0;
+  color: #5a1f23;
+  font-size: 0.95rem;
+  font-style: italic;
+}
+.price {
+  display: inline-block;
+  align-self: flex-start;
+  margin: 0.6rem 0 0;
+  padding: 0.1rem 0.7rem;
+  font-family: "Barlow", system-ui, sans-serif;
+  font-weight: 700;
+  font-size: 1.6rem;
+  line-height: 1.25;
+  letter-spacing: 0.01em;
+  font-variant-numeric: lining-nums tabular-nums;
+  color: var(--gold);
+  background: var(--red);
+  border: 3px solid var(--gold);
+  border-radius: 99px;
+  transform: rotate(-3deg);
+}
+.price::before {
+  content: "🔔 ";
+  font-size: 1.3rem;
+}
+.link {
+  margin-top: auto;
+  padding-top: 0.9rem;
+}
+a.example {
+  display: inline-block;
+  padding: 0.35rem 0.9rem;
+  color: #fff;
+  background: var(--green);
+  border: 2px dashed var(--gold);
+  border-radius: 8px;
+  font-weight: 700;
+  text-decoration: none;
+}
+a.example::before {
+  content: "🎁 ";
+}
+a.example:hover {
+  background: var(--red);
+}
+.none {
+  color: #5a1f23;
+  font-size: 0.95rem;
+}
+#count {
+  margin-top: 2.5rem;
+  text-align: center;
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 2rem;
+  color: var(--gold);
+  text-shadow: 0 3px 0 #06260f;
+}
+#count::before {
+  content: "🎄🎅🎄 ";
+}
+#count::after {
+  content: " 🎄🦌🎄";
+}
+.site-footer {
+  max-width: 72rem;
+  margin: 0 auto;
+  padding: 0 1.25rem 3rem;
+  text-align: center;
+}
+.social {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin: 0 0 1rem;
+  padding: 0;
+  list-style: none;
+}
+.social a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.2rem;
+  height: 3.2rem;
+  color: #fff;
+  background: var(--red);
+  border: 3px solid var(--gold);
+  border-radius: 50%;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.45);
+  transition:
+    transform 0.15s,
+    background 0.15s;
+}
+.social a:hover {
+  background: var(--green);
+  transform: translateY(-3px) rotate(-6deg);
+}
+.social svg {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+.copyright {
+  margin: 0;
+  color: #fff;
+  font-size: 0.95rem;
+  text-shadow: 0 1px 0 #06260f;
+}
+@media (prefers-reduced-motion: reduce) {
+  .bulb,
+  .marquee span,
+  .flake,
+  .glitter,
+  .bounce,
+  .card:hover {
+    animation: none;
+  }
+  .flake,
+  .spark {
+    display: none;
+  }
+}
